@@ -11,11 +11,9 @@ export class ButtonComponent {
   
   selectAzure() {  
     this.themeService.selectTheme('azure');  
-    console.log('Azure')
   }  
   
   selectAws() {  
     this.themeService.selectTheme('aws');  
-    console.log('AWS')
   }  
 }  

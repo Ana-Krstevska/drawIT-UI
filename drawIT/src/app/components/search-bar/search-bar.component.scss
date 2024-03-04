@@ -81,3 +81,21 @@
   color: #185ee0;
   cursor: pointer;
 }
+
+.searchInput .resultBox {  
+  display: none;  
+}  
+  
+.searchInput.active .resultBox {  
+  display: block;  
+}  
+
+.selectedSuggestion {  
+  position: absolute;  
+  left: 100%;  
+  /* other styles as needed */  
+}  
+  
+.selectedSuggestion button {  
+  /* styles for the X button */  
+}  
