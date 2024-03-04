@@ -6,16 +6,7 @@
 	box-sizing: border-box;
 }
 
-// body {
-// 	font-family: "Inter", sans-serif;
-// 	background-color: rgba(#e6eef9, 0.5);
-// }
 .container {
-	// position: absolute;
-	// left: 0;
-	// top: 0;
-	// right: 0;
-	// bottom: 0;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -49,26 +40,10 @@ input[type="radio"] {
 	transition: color 0.15s ease-in;
 }
 
-// .notification {
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-// 	width: 2rem;
-// 	height: 2rem;
-// 	margin-left: 0.75rem;
-// 	border-radius: 50%;
-// 	background-color: #e6eef9;
-// 	transition: 0.15s ease-in;
-// }
-
 input[type="radio"] {
 	&:checked {
 		& + label {
 			color: #185ee0;
-			& > .notification {
-				background-color: #185ee0;
-				color: #fff;
-			}
 		}
 	}
 }
@@ -77,6 +52,11 @@ input[id="radio-1"] {
 	&:checked {
 		& ~ .glider {
 			transform: translateX(0);
+			background-color: #185ee055;
+		}
+		& + label {
+			color: #185ee0;
+			font-weight: bold;
 		}
 	}
 }
@@ -85,6 +65,11 @@ input[id="radio-2"] {
 	&:checked {
 		& ~ .glider {
 			transform: translateX(100%);
+			background-color: #e0971855;
+		}
+		& + label {
+			color: #e18f03;
+			font-weight: bold;
 		}
 	}
 }
@@ -94,7 +79,6 @@ input[id="radio-2"] {
 	display: flex;
 	height: 54px;
 	width: 200px;
-	background-color: #185ee055;
 	z-index: 1;
 	border-radius: 99px; // just a high number to create pill effect
 	transition: 0.25s ease-out;
