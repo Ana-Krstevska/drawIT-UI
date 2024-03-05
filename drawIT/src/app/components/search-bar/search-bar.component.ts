@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';  
-import { ThemeService } from 'src/app/services/themeService';  
+import { ThemeService } from 'src/app/services/theme.service.';  
 import { Subscription } from 'rxjs';   
+import { SuggestionsService } from 'src/app/services/suggestion.service';
   
 @Component({  
   selector: 'app-search-bar',  
@@ -11,7 +12,7 @@ export class SearchBarComponent implements OnInit {
   borderColor = 'blue';  // Default color    
   private subscription!: Subscription;   
   
-  selectedSuggestion: string = '';  
+  selectedSuggestions: string[] = [];   
   isActive = false;  
   searchText = '';  
   suggestions = [    
@@ -24,14 +25,21 @@ export class SearchBarComponent implements OnInit {
   ];  
   filteredSuggestions: string[] = [];  
     
-  constructor(private themeService: ThemeService) { }    
+  constructor(private themeService: ThemeService, private suggestionsService: SuggestionsService) { }    
     
   ngOnInit() {    
-    this.subscription = this.themeService.theme$.subscribe(theme => {    
-      this.borderColor = theme === 'azure' ? 'blue' : 'orange';    
+    this.subscription = this.themeService.theme$.subscribe(theme => {      
+      this.borderColor = theme === 'azure' ? 'blue' : 'orange';      
+    });  
+    
+    this.suggestionsService.removeSuggestionIndex$.subscribe(index => {  
+      this.selectedSuggestions.splice(index, 1);  
     });    
   }    
-    
+  
+  onSuggestionSelected(suggestion: string) {  
+    this.suggestionsService.selectSuggestion(suggestion);  
+  }  
   search() {  
     if(this.searchText == '') {  
       this.filteredSuggestions = [];  
@@ -52,16 +60,18 @@ export class SearchBarComponent implements OnInit {
   }  
     
 
-  selectSuggestion(suggestion: string) {  
-    this.searchText = '';  
-    this.selectedSuggestion = suggestion;  
-    this.filteredSuggestions = [];  
-    this.isActive = false;  
+  selectSuggestion(suggestion: string) {      
+    this.searchText = '';      
+    this.onSuggestionSelected(suggestion); 
+    this.filteredSuggestions = [];      
+    this.isActive = false;      
+  }  
+  
+  
+  removeSuggestion(index: number) {    
+    this.selectedSuggestions.splice(index, 1);  
   }   
   
-  removeSuggestion() {  
-    this.selectedSuggestion = '';  
-  }  
   
   ngOnDestroy() {    
     this.subscription.unsubscribe();    

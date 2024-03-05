@@ -1,0 +1,6 @@
+<div *ngFor="let suggestion of suggestions; let i = index" class="selectedSuggestion">      
+    <div class="suggestion-container">     
+        {{ suggestion }}      
+        <span class="remove-btn" (click)="removeSuggestion(i)"><i class="fas fa-times"></i></span>      
+    </div>  
+</div>    

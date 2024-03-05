@@ -9,7 +9,8 @@
     </div>  
 </div>  
 
-<div *ngIf="selectedSuggestion" class="selectedSuggestion">  
-    {{ selectedSuggestion }}  
-    <button (click)="removeSuggestion()">X</button>  
-</div>  
+<div *ngFor="let suggestion of selectedSuggestions; let i = index" class="selectedSuggestion">    
+    {{ suggestion }}    
+    <button (click)="removeSuggestion(i)">X</button>   
+  </div>  
+  

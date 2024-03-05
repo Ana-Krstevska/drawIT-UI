@@ -82,12 +82,14 @@
   cursor: pointer;
 }
 
-.searchInput .resultBox {  
-  display: none;  
+.searchInput .resultBox{  
+  // opacity: 0;  
+  pointer-events: none;  
 }  
   
-.searchInput.active .resultBox {  
-  display: block;  
+.searchInput.active .resultBox{  
+  opacity: 1;  
+  pointer-events: auto;  
 }  
 
 .selectedSuggestion {  

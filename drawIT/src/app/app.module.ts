@@ -8,6 +8,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { DescriptionAreaComponent } from './components/description-area/description-area.component';
 import { ButtonGenerateComponent } from './components/button-generate/button-generate.component';
+import { SelectedSuggestionsComponent } from './components/selected-suggestions/selected-suggestions.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ButtonGenerateComponent } from './components/button-generate/button-gen
     ButtonComponent,
     SearchBarComponent,
     DescriptionAreaComponent,
-    ButtonGenerateComponent
+    ButtonGenerateComponent,
+    SelectedSuggestionsComponent
   ],
   imports: [
     BrowserModule,
