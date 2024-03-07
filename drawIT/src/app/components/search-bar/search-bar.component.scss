@@ -65,9 +65,15 @@
 .searchInput.active .resultBox li{
   display: block;
 }
-.resultBox li:hover{
-  background: #efefef;
-}
+
+.resultBox li:hover{  
+  background: #efefef;  
+  transition-delay: 0.1s; 
+}  
+
+.resultBox li.keyboardActive{  
+  background-color: #efefef;  
+}  
 
 .searchInput .icon{
   position: absolute;
@@ -94,10 +100,9 @@
 
 .selectedSuggestion {  
   position: absolute;  
-  left: 100%;  
-  /* other styles as needed */  
+  left: 100%;   
 }  
   
-.selectedSuggestion button {  
-  /* styles for the X button */  
+.resultBox li.active{  
+  background-color: #efefef; /* Change as per your preference */  
 }  

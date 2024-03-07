@@ -10,7 +10,11 @@ import { SuggestionsService } from 'src/app/services/suggestion.service';
 })  
 export class SearchBarComponent implements OnInit {  
   borderColor = 'blue';  // Default color    
-  private subscription!: Subscription;   
+  private subscription!: Subscription;  
+  
+  activeSuggestionIndex = -1;  
+  activeSuggestion: string | null = null;  
+  isKeyboardNavigation = false;  
   
   selectedSuggestions: string[] = [];   
   isActive = false;  
@@ -54,10 +58,30 @@ export class SearchBarComponent implements OnInit {
   }  
   
   handleKeyup(event: KeyboardEvent) {  
-    if (event.key === 'Enter' && this.filteredSuggestions.length > 0) {  
-      this.selectSuggestion(this.filteredSuggestions[0]);  
+    this.isKeyboardNavigation = true; 
+
+    // ArrowDown key  
+    if (event.key === 'ArrowDown') {  
+      if (this.activeSuggestionIndex < this.filteredSuggestions.length - 1) {  
+        this.activeSuggestionIndex++;  
+        this.activeSuggestion = this.filteredSuggestions[this.activeSuggestionIndex];  
+      }  
+    }  
+    // ArrowUp key  
+    else if (event.key === 'ArrowUp') {  
+      if (this.activeSuggestionIndex > 0) { 
+        this.activeSuggestionIndex--;  
+        this.activeSuggestion = this.filteredSuggestions[this.activeSuggestionIndex];  
+      }  
+    }  
+    // Enter key  
+    else if (event.key === 'Enter') {  
+      if (this.activeSuggestion) { 
+        this.selectSuggestion(this.activeSuggestion);  
+      }  
     }  
   }  
+  
     
 
   selectSuggestion(suggestion: string) {      
