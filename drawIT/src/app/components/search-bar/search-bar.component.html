@@ -1,22 +1,22 @@
-<div class="container">    
-    <div class="searchInput" [class.active]="isActive">    
-      <input type="text" placeholder="Find your services" [(ngModel)]="searchText"   
-             (keyup)="handleKeyup($event)" (input)="search()">    
-        <div class="resultBox" (mousemove)="isKeyboardNavigation = false">
-            <li *ngFor="let suggestion of filteredSuggestions; let i = index"
-                [class.active]="i === activeSuggestionIndex && !isKeyboardNavigation"
-                [class.keyboardActive]="i === activeSuggestionIndex && isKeyboardNavigation"
+<div class="container">
+    <div class="searchInput" [class.active]="isActive">
+        <input type="text" placeholder="Find your services" [(ngModel)]="searchText" (keyup)="handleKeyup($event)"
+            (input)="search()">
+        <div class="resultBox"
+            (mousemove)="isKeyboardNavigation = false; activeSuggestionIndex = -1; isKeyPressed = false">
+            <li *ngFor="let suggestion of filteredSuggestions; let i = index" [class.active]="i === mouseOverIndex"
+                [class.keyboardActive]="i === activeSuggestionIndex && mouseOverIndex === -1"
+                (mouseenter)="mouseOverIndex = i" (mouseleave)="mouseOverIndex = -1"
                 (click)="selectSuggestion(suggestion)">
                 {{suggestion}}
             </li>
         </div>
-      <div [style.color]="borderColor" class="icon"><i class="fas fa-search"></i></div>    
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">    
-    </div>    
-  </div>    
-    
-  <div *ngFor="let suggestion of selectedSuggestions; let i = index" class="selectedSuggestion">      
-    {{ suggestion }}      
-    <button (click)="removeSuggestion(i)">X</button>     
-  </div>    
-  
+        <div [style.color]="borderColor" class="icon"><i class="fas fa-search"></i></div>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+    </div>
+</div>
+
+<div *ngFor="let suggestion of selectedSuggestions; let i = index" class="selectedSuggestion">
+    {{ suggestion }}
+    <button (click)="removeSuggestion(i)">X</button>
+</div>

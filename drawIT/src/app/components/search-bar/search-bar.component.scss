@@ -66,13 +66,16 @@
   display: block;
 }
 
-.resultBox li:hover{  
-  background: #efefef;  
-  transition-delay: 0.1s; 
+.resultBox li:hover {  
+  background-color: #efefef; 
 }  
 
 .resultBox li.keyboardActive{  
   background-color: #efefef;  
+} 
+
+.resultBox li.mouseHover {  
+  background: #efefef;  
 }  
 
 .searchInput .icon{
@@ -104,5 +107,5 @@
 }  
   
 .resultBox li.active{  
-  background-color: #efefef; /* Change as per your preference */  
+  background-color: #efefef; 
 }  
