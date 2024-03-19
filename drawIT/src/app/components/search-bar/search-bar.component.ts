@@ -97,6 +97,7 @@ export class SearchBarComponent implements OnInit {
     this.onSuggestionSelected(suggestion);
     this.filteredSuggestions = [];
     this.isActive = false;
+    this.activeSuggestionIndex = -1;
   }
 
   removeSuggestion(index: number) {
