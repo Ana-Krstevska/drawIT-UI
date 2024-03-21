@@ -13,6 +13,7 @@ export class SelectedSuggestionsComponent implements OnInit {
 
   borderColor = 'blue';  // Default color    
   private subscription!: Subscription; 
+  hasSuggestions = false;
   
   constructor(private themeService: ThemeService, private suggestionsService: SuggestionsService) { }  
   
@@ -21,9 +22,10 @@ export class SelectedSuggestionsComponent implements OnInit {
       this.borderColor = theme === 'azure' ? 'blue' : 'orange';      
     });  
 
+
     this.suggestionsService.selectedSuggestion$.subscribe(suggestion => {  
       this.suggestions.push(suggestion);  
-      console.log(suggestion);  
+      this.hasSuggestions = true;
     });  
   }  
   
