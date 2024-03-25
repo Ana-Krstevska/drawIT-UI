@@ -19,7 +19,8 @@ export class SelectedSuggestionsComponent implements OnInit {
   
   ngOnInit() {  
     this.subscription = this.themeService.theme$.subscribe(theme => {      
-      this.borderColor = theme === 'azure' ? 'blue' : 'orange';      
+      this.borderColor = theme === 'azure' ? '#185ee0' : '#e18f03';  
+      document.documentElement.style.setProperty('--text-color',  theme === 'azure' ? '#dee9fc' : '#fcf4e8');
     });  
 
 

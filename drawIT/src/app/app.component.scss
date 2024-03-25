@@ -1,7 +1,8 @@
 body {  
     font-family: Arial, sans-serif;  
     background-color: #ffff;  
-    margin-top: 75px; 
+    margin-top: 175px;
+    margin-right: 145px; 
     // padding: 0;  
     display: flex;  
     justify-content: flex-end;  
@@ -31,20 +32,4 @@ app-selected-suggestions {
     // align-items: center;  
 }  
 
-
-// .suggestions-container {  
-//     display: flex;  
-//     flex-direction: column;  
-//     justify-content: center;  
-//     align-items: flex-end;  
-//     height: 100%; /* or any fixed height depending on your layout */  
-//     position: absolute;  
-//     right: 0;  
-// }  
-  
-// app-selected-suggestions {  
-//     display: flex;  
-//     flex-direction: column;  
-//     align-items: center;  
-// }  
 
