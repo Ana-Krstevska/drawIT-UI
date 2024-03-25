@@ -18,13 +18,13 @@ export class SelectedSuggestionsComponent implements OnInit {
   constructor(private themeService: ThemeService, private suggestionsService: SuggestionsService) { }  
   
   ngOnInit() {  
-    this.subscription = this.themeService.theme$.subscribe(theme => {      
+    this.subscription = this.themeService.theme$.subscribe((theme: string) => {      
       this.borderColor = theme === 'azure' ? '#185ee0' : '#e18f03';  
       document.documentElement.style.setProperty('--text-color',  theme === 'azure' ? '#dee9fc' : '#fcf4e8');
     });  
 
 
-    this.suggestionsService.selectedSuggestion$.subscribe(suggestion => {  
+    this.suggestionsService.selectedSuggestion$.subscribe((suggestion: string) => {  
       this.suggestions.push(suggestion);  
       this.hasSuggestions = true;
     });  
