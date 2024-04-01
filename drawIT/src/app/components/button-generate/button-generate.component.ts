@@ -8,7 +8,7 @@ import { ThemeService } from 'src/app/services/theme.service.';
   styleUrls: ['./button-generate.component.scss']
 })
 export class ButtonGenerateComponent implements OnInit {
-  borderColor = 'blue';  // Default color  
+  borderColor = 'blue'; 
   private subscription!: Subscription;  
   
   constructor(private themeService: ThemeService) { }  

@@ -1,11 +1,8 @@
-
-    <div class="suggestion-wrapper">
-        <ng-container *ngFor="let suggestion of suggestions; let i = index" class="selectedSuggestion">  
-        <div [style.background-color]="borderColor" class="suggestion-container">     
-            {{ suggestion }}      
-            <span class="remove-btn" (click)="removeSuggestion(i)"><i class="fas fa-times"></i></span>      
-        </div>  
-    </ng-container> 
-    </div>    
-  
-   
+<div class="suggestion-wrapper">
+    <ng-container *ngFor="let suggestion of suggestions; let i = index" class="selectedSuggestion">
+        <div [style.background-color]="borderColor" class="suggestion-container">
+            {{ suggestion }}
+            <span class="remove-btn" (click)="removeSuggestion(i)"><i class="fas fa-times"></i></span>
+        </div>
+    </ng-container>
+</div>

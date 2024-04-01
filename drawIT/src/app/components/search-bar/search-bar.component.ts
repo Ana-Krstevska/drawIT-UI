@@ -9,7 +9,7 @@ import { SuggestionsService } from 'src/app/services/suggestion.service';
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit {
-  borderColor = 'blue';  // Default color    
+  borderColor = 'blue';     
   private subscription!: Subscription;
 
   activeSuggestionIndex = -1;

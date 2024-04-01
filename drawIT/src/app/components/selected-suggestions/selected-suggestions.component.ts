@@ -11,7 +11,7 @@ import { ThemeService } from 'src/app/services/theme.service.';
 export class SelectedSuggestionsComponent implements OnInit {  
   suggestions: string[] = [];  
 
-  borderColor = 'blue';  // Default color    
+  borderColor = 'blue';    
   private subscription!: Subscription; 
   hasSuggestions = false;
   
