@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ThemeService } from 'src/app/services/themeService';
+import { ThemeService } from 'src/app/services/theme.service.';
 
 @Component({
   selector: 'app-button-generate',
@@ -8,7 +8,7 @@ import { ThemeService } from 'src/app/services/themeService';
   styleUrls: ['./button-generate.component.scss']
 })
 export class ButtonGenerateComponent implements OnInit {
-  borderColor = 'blue';  // Default color  
+  borderColor = 'blue'; 
   private subscription!: Subscription;  
   
   constructor(private themeService: ThemeService) { }  

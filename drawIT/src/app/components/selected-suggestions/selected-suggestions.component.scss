@@ -1,0 +1,43 @@
+:root {  
+    --background-color: #185ee0; /* Default color */  
+    --text-color: #dee9fc;
+}  
+
+.suggestion-container {  
+    background-color: #185ee055; 
+    padding: 5px 10px;  
+    margin-bottom: 10px;  
+    border-radius: 50px; 
+    position: relative; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    color: var(--text-color);  
+    font-weight: bold;   
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+    font-size: 14px;
+    width: 150px;
+    text-align: center;
+}  
+  
+.remove-btn {  
+    background-color: #e74c3c;  
+    color: white;  
+    padding: 1px 5px;  
+    border-radius: 50px;  
+    margin-left: 8px;
+    cursor: pointer;   
+    transition: all 0.3s ease; 
+}  
+  
+.remove-btn:hover {  
+    background-color: #c0392b;  
+}  
+.suggestion-wrapper{
+    max-width: 370px;
+    min-width: 370px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
