@@ -85,10 +85,12 @@ export class SearchBarComponent implements OnInit {
       this.activeSuggestion = this.filteredSuggestions[this.activeSuggestionIndex];
     }
     // Enter key  
-    else if (event.key === 'Enter') {
-      if (this.activeSuggestion) {
-        this.selectSuggestion(this.activeSuggestion);
-      }
+    else if (event.key === 'Enter') {  
+      if (this.activeSuggestion) {  
+        this.selectSuggestion(this.activeSuggestion);  
+      } else if (this.filteredSuggestions.length > 0) {    
+        this.selectSuggestion(this.filteredSuggestions[0]);  
+      }  
     }
   }
 
@@ -98,6 +100,7 @@ export class SearchBarComponent implements OnInit {
     this.filteredSuggestions = [];
     this.isActive = false;
     this.activeSuggestionIndex = -1;
+    this.activeSuggestion = null;
   }
 
   removeSuggestion(index: number) {
