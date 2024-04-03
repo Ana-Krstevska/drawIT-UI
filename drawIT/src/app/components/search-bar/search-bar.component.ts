@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { ThemeService } from 'src/app/services/theme.service.';
 import { Subscription } from 'rxjs';
 import { SuggestionsService } from 'src/app/services/suggestion.service';
@@ -9,13 +9,13 @@ import { SuggestionsService } from 'src/app/services/suggestion.service';
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit {
-  borderColor = 'blue';     
+  borderColor = 'blue';
   private subscription!: Subscription;
 
   activeSuggestionIndex = -1;
   activeSuggestion: string | null = null;
   isKeyboardNavigation = false;
-  isKeyPressed = false;  
+  isKeyPressed = false;
   isMouseMoving = false;
   mouseOverIndex = -1;
 
@@ -32,7 +32,7 @@ export class SearchBarComponent implements OnInit {
   ];
   filteredSuggestions: string[] = [];
 
-  constructor(private themeService: ThemeService, private suggestionsService: SuggestionsService) { }
+  constructor(private themeService: ThemeService, private suggestionsService: SuggestionsService, private _eref: ElementRef) { }
 
   ngOnInit() {
     this.subscription = this.themeService.theme$.subscribe(theme => {
@@ -47,6 +47,15 @@ export class SearchBarComponent implements OnInit {
   onSuggestionSelected(suggestion: string) {
     this.suggestionsService.selectSuggestion(suggestion);
   }
+
+  @HostListener('document:click', ['$event'])
+  clickout(event: Event) {
+    if (!this._eref.nativeElement.contains(event.target)) {
+      this.isActive = false;
+      this.filteredSuggestions = [];
+    }
+  }
+
 
   search() {
     if (this.searchText == '') {
@@ -66,16 +75,15 @@ export class SearchBarComponent implements OnInit {
     this.isKeyPressed = true;
     this.mouseOverIndex = -1;
 
-    // ArrowDown key  
     if (event.key === 'ArrowDown') {
-      if (this.activeSuggestionIndex < this.filteredSuggestions.length - 1) {  
+      if (this.activeSuggestionIndex < this.filteredSuggestions.length - 1) {
         this.activeSuggestionIndex++;
-      } else { 
-        this.activeSuggestionIndex = 0; 
+      } else {
+        this.activeSuggestionIndex = 0;
       }
       this.activeSuggestion = this.filteredSuggestions[this.activeSuggestionIndex];
     }
-    // ArrowUp key  
+
     else if (event.key === 'ArrowUp') {
       if (this.activeSuggestionIndex > 0) {
         this.activeSuggestionIndex--;
@@ -84,13 +92,13 @@ export class SearchBarComponent implements OnInit {
       }
       this.activeSuggestion = this.filteredSuggestions[this.activeSuggestionIndex];
     }
-    // Enter key  
-    else if (event.key === 'Enter') {  
-      if (this.activeSuggestion) {  
-        this.selectSuggestion(this.activeSuggestion);  
-      } else if (this.filteredSuggestions.length > 0) {    
-        this.selectSuggestion(this.filteredSuggestions[0]);  
-      }  
+
+    else if (event.key === 'Enter') {
+      if (this.activeSuggestion) {
+        this.selectSuggestion(this.activeSuggestion);
+      } else if (this.filteredSuggestions.length > 0) {
+        this.selectSuggestion(this.filteredSuggestions[0]);
+      }
     }
   }
 
