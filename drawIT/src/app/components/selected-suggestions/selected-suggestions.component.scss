@@ -33,6 +33,7 @@
 .remove-btn:hover {  
     background-color: #c0392b;  
 }  
+
 .suggestion-wrapper{
     max-width: 370px;
     min-width: 370px;
@@ -40,4 +41,6 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    max-height: 420px; 
+    overflow-y: auto; 
 }
