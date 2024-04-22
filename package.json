@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "jointjs": "^3.7.7",
+    "jquery": "^3.7.1"
+  },
+  "devDependencies": {
+    "@types/backbone": "^1.4.19",
+    "@types/jquery": "^3.5.29"
+  }
+}
