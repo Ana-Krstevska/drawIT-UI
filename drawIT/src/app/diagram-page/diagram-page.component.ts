@@ -24,21 +24,21 @@ export class DiagramPageComponent implements OnInit, AfterViewInit {
   
     const paper = new joint.dia.Paper({  
       el: element,  
-      width: 600,  
-      height: 600,  
+      width: 1000,  
+      height: 500,  
       model: graph,  
       gridSize: 1  
     });  
   
     const wakeup = new joint.shapes.standard.Rectangle();  
-    wakeup.position(100, 30);  
+    wakeup.position(450, 30);  
     wakeup.resize(100, 40);  
     wakeup.attr({  
       body: {  
         fill: 'lightblue'  
       },  
       label: {  
-        text: 'Wake up',  
+        text: 'API',  
         fill: 'black'  
       }  
     });  
@@ -51,7 +51,7 @@ export class DiagramPageComponent implements OnInit, AfterViewInit {
         fill: 'orange'  
       },  
       label: {  
-        text: 'Eat breakfast'  
+        text: 'Database'  
       }  
     });  
     eatBreakfast.addTo(graph);  
@@ -63,7 +63,7 @@ export class DiagramPageComponent implements OnInit, AfterViewInit {
         fill: 'lightgreen'  
       },  
       label: {  
-        text: 'Go to work'  
+        text: 'Storage'  
       }  
     });  
     goToWork.addTo(graph);  
