@@ -1,19 +1,27 @@
-import { Component } from '@angular/core';  
-import { ThemeService } from '../../services/theme.service.';  
+import { Component, OnInit } from '@angular/core';    
+import { ThemeService } from '../../services/theme.service.';    
+    
+@Component({    
+  selector: 'app-button',    
+  templateUrl: './button.component.html',  
+  styleUrls: ['./button.component.scss']  
+})    
+export class ButtonComponent implements OnInit {    
+  theme: 'azure' | 'aws' = 'azure';  
   
-@Component({  
-  selector: 'app-button',  
-  templateUrl: './button.component.html',
-  styleUrls: ['./button.component.scss']
-})  
-export class ButtonComponent {  
-  constructor(private themeService: ThemeService) { }  
+  constructor(private themeService: ThemeService) { }    
   
-  selectAzure() {  
-    this.themeService.selectTheme('azure');  
+  ngOnInit() {  
+    this.themeService.theme$.subscribe(theme => {  
+      this.theme = theme;  
+    });  
   }  
-  
-  selectAws() {  
-    this.themeService.selectTheme('aws');  
-  }  
-}  
+    
+  selectAzure() {    
+    this.themeService.selectTheme('azure');    
+  }    
+    
+  selectAws() {    
+    this.themeService.selectTheme('aws');    
+  }    
+}    
