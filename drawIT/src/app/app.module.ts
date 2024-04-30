@@ -12,6 +12,9 @@ import { ButtonGenerateComponent } from './components/button-generate/button-gen
 import { SelectedSuggestionsComponent } from './components/selected-suggestions/selected-suggestions.component';
 import { DiagramPageComponent } from './diagram-page/diagram-page.component';
 import { InputPageComponent } from './input-page/input-page.component';
+import { ButtonBackComponent } from './components/button-back/button-back.component';
+import { ButtonDownloadComponent } from './components/button-download/button-download.component';
+import { CanvasComponent } from './components/canvas/canvas.component';
 
 const routes: Routes = [  
   { path: '', redirectTo: '/input', pathMatch: 'full' },  
@@ -29,7 +32,10 @@ const routes: Routes = [
     ButtonGenerateComponent,
     SelectedSuggestionsComponent,
     DiagramPageComponent,
-    InputPageComponent
+    InputPageComponent,
+    ButtonBackComponent,
+    ButtonDownloadComponent,
+    CanvasComponent
   ],
   imports: [
     BrowserModule,
