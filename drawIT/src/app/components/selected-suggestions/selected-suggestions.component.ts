@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';  
 import { Subscription } from 'rxjs';
 import { SuggestionsService } from 'src/app/services/suggestion.service';
-import { ThemeService } from 'src/app/services/theme.service.';  
+import { ThemeService } from 'src/app/services/theme.service';  
 
 @Component({  
   selector: 'app-selected-suggestions',  
