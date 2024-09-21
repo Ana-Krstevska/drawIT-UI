@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })  
 export class InputPageComponent {  
   title = 'drawIT';    
+  theme: 'azure' | 'aws' = 'azure';  
+  description: string = '';   
 }  

@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DrawingAPIService } from 'src/app/services/drawing-api.service';
+import { SelectedServicesService } from 'src/app/services/selected-services.service';
 import { ThemeService } from 'src/app/services/theme.service';
+import { DrawingRequest } from 'src/app/models/drawing-request.model';
 
 @Component({
   selector: 'app-button-generate',
@@ -9,10 +12,21 @@ import { ThemeService } from 'src/app/services/theme.service';
   styleUrls: ['./button-generate.component.scss']
 })
 export class ButtonGenerateComponent implements OnInit {
+  @Input() theme!: 'azure' | 'aws';  
+  selectedSuggestions!: string[];
+  @Input() description!: string; 
+
   borderColor = 'blue'; 
   private subscription!: Subscription;  
   
-  constructor(private themeService: ThemeService, private router: Router) { }  
+  constructor(private themeService: ThemeService, 
+              private router: Router,
+              private apiService: DrawingAPIService,
+              private selectedCloudServices: SelectedServicesService) {
+                this.selectedCloudServices.selectedSuggestions$.subscribe(  
+                  suggestions => this.selectedSuggestions = suggestions  
+                );
+               }  
   
   ngOnInit() {  
     this.subscription = this.themeService.theme$.subscribe(theme => {  
@@ -23,7 +37,14 @@ export class ButtonGenerateComponent implements OnInit {
 
   goToNewPage(event: Event) {  
     event.preventDefault();  
-    this.router.navigate(['/diagram']);  
+    const request = {  
+      cloud: this.theme === 'azure' ? 0 : 1,  
+      cloudServices: this.selectedSuggestions,  
+      userDescription: this.description  
+    };  
+    this.apiService.sendPrompt(request).subscribe((response: DrawingRequest) => {    
+        this.router.navigate(['/diagram']);      
+    }); 
   }    
   
   ngOnDestroy() {  

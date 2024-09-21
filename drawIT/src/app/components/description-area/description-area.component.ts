@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-description-area',
@@ -8,8 +8,8 @@ import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angula
 export class DescriptionAreaComponent implements OnInit, AfterViewInit {
 
   @ViewChild('description') description!: ElementRef;
-
-  constructor() { }
+  @Output() descriptionChange = new EventEmitter<string>(); 
+  constructor() { }  
 
   ngOnInit(): void {
   }
@@ -37,6 +37,7 @@ export class DescriptionAreaComponent implements OnInit, AfterViewInit {
         textarea.style.height = (3 * lineHeight) + 'px';
         textarea.style.overflowY = 'auto';
       }
+      this.descriptionChange.emit(textarea.value); 
     });
   }
 

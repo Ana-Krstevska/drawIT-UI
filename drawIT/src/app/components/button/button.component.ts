@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';    
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';    
 import { ThemeService } from '../../services/theme.service';    
     
 @Component({    
@@ -7,6 +7,7 @@ import { ThemeService } from '../../services/theme.service';
   styleUrls: ['./button.component.scss']  
 })    
 export class ButtonComponent implements OnInit {    
+  @Output() selectedTheme = new EventEmitter<'azure' | 'aws'>();
   theme: 'azure' | 'aws' = 'azure';  
   
   constructor(private themeService: ThemeService) { }    
@@ -18,10 +19,12 @@ export class ButtonComponent implements OnInit {
   }  
     
   selectAzure() {    
-    this.themeService.selectTheme('azure');    
+    this.themeService.selectTheme('azure');  
+    this.selectedTheme.emit('azure');  
   }    
     
   selectAws() {    
-    this.themeService.selectTheme('aws');    
+    this.themeService.selectTheme('aws');
+    this.selectedTheme.emit('aws');    
   }    
 }    

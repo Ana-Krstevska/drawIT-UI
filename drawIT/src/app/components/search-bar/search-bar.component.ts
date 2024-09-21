@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, ElementRef, HostListener, Output, EventEmitter } from '@angular/core';
 import { ThemeService } from 'src/app/services/theme.service';
 import { Subscription } from 'rxjs';
 import { SuggestionsService } from 'src/app/services/suggestion.service';
@@ -34,7 +34,7 @@ export class SearchBarComponent implements OnInit {
   filteredSuggestions: string[] = [];
 
   constructor(private themeService: ThemeService,
-              private suggestionsService: SuggestionsService, 
+              private suggestionsService: SuggestionsService,
               private _eref: ElementRef,
               private apiService: DrawingAPIService) { }
 
@@ -58,14 +58,12 @@ export class SearchBarComponent implements OnInit {
     this.suggestionsService.selectSuggestion(suggestion);
   }
 
-  // Fetch Azure services  
   fetchAzureServices() {  
     this.apiService.getAzureServices().subscribe((data: any) => {  
       this.suggestions = data.map((service: { name: any; }) => service.name);  
     });  
   }  
     
-  // Fetch AWS services  
   fetchAWSServices() {  
     this.apiService.getAWSServices().subscribe((data: any) => {  
       this.suggestions = data.map((service: { name: any; }) => service.name);  
