@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';  
 import { Subscription } from 'rxjs';
+import { SelectedServicesService } from 'src/app/services/selected-services.service';
 import { SuggestionsService } from 'src/app/services/suggestion.service';
-import { ThemeService } from 'src/app/services/theme.service.';  
+import { ThemeService } from 'src/app/services/theme.service';  
 
 @Component({  
   selector: 'app-selected-suggestions',  
@@ -15,7 +16,9 @@ export class SelectedSuggestionsComponent implements OnInit {
   private subscription!: Subscription; 
   hasSuggestions = false;
   
-  constructor(private themeService: ThemeService, private suggestionsService: SuggestionsService) { }  
+  constructor(private themeService: ThemeService,
+              private suggestionsService: SuggestionsService,
+              private selectedCloudServices: SelectedServicesService) { }  
   
   ngOnInit() {  
     this.subscription = this.themeService.theme$.subscribe((theme: string) => {      
@@ -26,6 +29,7 @@ export class SelectedSuggestionsComponent implements OnInit {
 
     this.suggestionsService.selectedSuggestion$.subscribe((suggestion: string) => {  
       this.suggestions.push(suggestion);  
+      this.selectedCloudServices.setSelectedSuggestions(this.suggestions);
       this.hasSuggestions = true;
     });  
   }  
@@ -33,6 +37,7 @@ export class SelectedSuggestionsComponent implements OnInit {
   removeSuggestion(index: number) {    
     this.suggestions.splice(index, 1);  
     this.suggestionsService.removeSuggestion(index);  
+    this.selectedCloudServices.setSelectedSuggestions(this.suggestions);
   }  
   
 }  

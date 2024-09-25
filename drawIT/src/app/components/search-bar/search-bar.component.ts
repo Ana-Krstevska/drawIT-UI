@@ -1,7 +1,8 @@
-import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
-import { ThemeService } from 'src/app/services/theme.service.';
+import { Component, OnInit, ElementRef, HostListener, Output, EventEmitter } from '@angular/core';
+import { ThemeService } from 'src/app/services/theme.service';
 import { Subscription } from 'rxjs';
 import { SuggestionsService } from 'src/app/services/suggestion.service';
+import { DrawingAPIService } from 'src/app/services/drawing-api.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -32,21 +33,43 @@ export class SearchBarComponent implements OnInit {
   ];
   filteredSuggestions: string[] = [];
 
-  constructor(private themeService: ThemeService, private suggestionsService: SuggestionsService, private _eref: ElementRef) { }
+  constructor(private themeService: ThemeService,
+              private suggestionsService: SuggestionsService,
+              private _eref: ElementRef,
+              private apiService: DrawingAPIService) { }
 
-  ngOnInit() {
-    this.subscription = this.themeService.theme$.subscribe(theme => {
-      this.borderColor = theme === 'azure' ? 'blue' : 'orange';
-    });
-
-    this.suggestionsService.removeSuggestionIndex$.subscribe(index => {
-      this.selectedSuggestions.splice(index, 1);
-    });
-  }
+  ngOnInit() {  
+    this.subscription = this.themeService.theme$.subscribe(theme => {  
+      this.suggestions = [];
+      this.borderColor = theme === 'azure' ? 'blue' : 'orange';  
+      if (theme === 'azure') {  
+        this.fetchAzureServices();  
+      } else {  
+        this.fetchAWSServices();  
+      }  
+    });  
+  
+    this.suggestionsService.removeSuggestionIndex$.subscribe(index => {  
+      this.selectedSuggestions.splice(index, 1);  
+    });  
+  } 
 
   onSuggestionSelected(suggestion: string) {
     this.suggestionsService.selectSuggestion(suggestion);
   }
+
+  fetchAzureServices() {  
+    this.apiService.getAzureServices().subscribe((data: any) => {  
+      this.suggestions = data.map((service: { name: any; }) => service.name);  
+    });  
+  }  
+    
+  fetchAWSServices() {  
+    this.apiService.getAWSServices().subscribe((data: any) => {  
+      this.suggestions = data.map((service: { name: any; }) => service.name);  
+    });  
+  }  
+
 
   @HostListener('document:click', ['$event'])
   clickout(event: Event) {

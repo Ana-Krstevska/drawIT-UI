@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ThemeService } from 'src/app/services/theme.service.';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-button-download',
