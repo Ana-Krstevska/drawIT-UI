@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as joint from 'jointjs';    
 import { Subscription } from 'rxjs';  
 import { DrawingRequest, ServicePair } from 'src/app/models/drawing-request.model';    
+import { DiagramService } from 'src/app/services/diagram.service';
 import { DrawingAPIService } from 'src/app/services/drawing-api.service';    
 import { ThemeService } from 'src/app/services/theme.service';  
     
@@ -17,7 +18,9 @@ export class CanvasComponent implements OnInit {
   labelColor = 'white';
   servicePairs: ServicePair[] = [];    
     
-  constructor(private apiService: DrawingAPIService, private themeService: ThemeService) { }    
+  constructor(private apiService: DrawingAPIService, 
+              private themeService: ThemeService,
+              private diagramService: DiagramService) { }    
     
   ngOnInit(): void {    
     this.drawingRequest = this.apiService.getDrawingRequest();    
@@ -30,7 +33,7 @@ export class CanvasComponent implements OnInit {
   }    
     
   ngAfterViewInit(): void {    
-    const graph = new joint.dia.Graph;    
+    const graph = new joint.dia.Graph;   
     const element = document.getElementById('myDiagramDiv');    
       
     if (!element) {    
@@ -139,6 +142,7 @@ export class CanvasComponent implements OnInit {
       link.source(elements[this.servicePairs.length - 1]);   
       link.target(el);    
       link.addTo(graph);    
-    }    
+    }   
+    this.diagramService.setGraph(graph, paper); 
   }        
 }    
