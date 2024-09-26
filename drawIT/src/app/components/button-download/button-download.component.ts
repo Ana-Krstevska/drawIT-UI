@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DiagramService } from 'src/app/services/diagram.service';
 import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
@@ -12,7 +13,9 @@ export class ButtonDownloadComponent implements OnInit {
   borderColor = 'blue'; 
   private subscription!: Subscription;  
   
-  constructor(private themeService: ThemeService, private router: Router) { }  
+  constructor(private themeService: ThemeService,
+              private router: Router,
+              private diagramService: DiagramService) { }  
   
   ngOnInit() {  
     this.subscription = this.themeService.theme$.subscribe(theme => {  
@@ -25,6 +28,10 @@ export class ButtonDownloadComponent implements OnInit {
     event.preventDefault();  
     this.router.navigate(['/input']);  
   }    
+
+  downloadDiagram(): void {  
+    this.diagramService.downloadDiagram();  
+  } 
   
   ngOnDestroy() {  
     this.subscription.unsubscribe();  
