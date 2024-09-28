@@ -16,6 +16,7 @@ import { InputPageComponent } from './input-page/input-page.component';
 import { ButtonBackComponent } from './components/button-back/button-back.component';
 import { ButtonDownloadComponent } from './components/button-download/button-download.component';
 import { CanvasComponent } from './components/canvas/canvas.component';
+import { DrawingSpinnerComponent } from './components/drawing-spinner/drawing-spinner.component';
 
 const routes: Routes = [  
   { path: '', redirectTo: '/input', pathMatch: 'full' },  
@@ -36,7 +37,8 @@ const routes: Routes = [
     InputPageComponent,
     ButtonBackComponent,
     ButtonDownloadComponent,
-    CanvasComponent
+    CanvasComponent,
+    DrawingSpinnerComponent
   ],
   imports: [
     BrowserModule,

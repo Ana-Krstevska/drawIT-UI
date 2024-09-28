@@ -1,3 +1,7 @@
+<div class="loading-overlay" *ngIf="isLoading">  
+    <app-drawing-spinner></app-drawing-spinner>  
+</div>  
+
 <script src="https://kit.fontawesome.com/e00711ebdc.js" crossorigin="anonymous"></script>  
 <div class="generate-button"> 
     <span><i [style.color]="borderColor" class="fas fa-arrow-right"></i>
