@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { DrawingAPIService } from 'src/app/services/drawing-api.service';
 import { SelectedServicesService } from 'src/app/services/selected-services.service';
 import { ThemeService } from 'src/app/services/theme.service';
@@ -15,8 +15,10 @@ export class ButtonGenerateComponent implements OnInit {
   @Input() theme!: 'azure' | 'aws';  
   selectedSuggestions!: string[];
   @Input() description!: string; 
+  @Output() pencilColorChange = new EventEmitter<string>();
 
   borderColor = 'blue'; 
+  isLoading = false; 
   private subscription!: Subscription;  
   private drawingRequest!: DrawingRequest;
 
@@ -32,17 +34,21 @@ export class ButtonGenerateComponent implements OnInit {
   ngOnInit() {  
     this.subscription = this.themeService.theme$.subscribe(theme => {  
       this.borderColor = theme === 'azure' ? 'blue' : 'orange';  
-      document.documentElement.style.setProperty('--theme-color', theme === 'azure' ? 'rgb(15, 33, 235)' : 'rgb(247, 145, 4)');  
+      document.documentElement.style.setProperty('--theme-color', theme === 'azure' ? 'rgb(15, 33, 235)' : 'rgb(247, 145, 4)');  ;
     });  
   }  
 
-  goToNewPage(event: Event) {    
-    event.preventDefault();    
-    const cloud = this.theme === 'azure' ? 0 : 1;  
-    this.apiService.sendPrompt(cloud, this.selectedSuggestions, this.description).subscribe((response: DrawingRequest) => {      
-        this.router.navigate(['/diagram']);        
-    });   
-  }   
+  goToNewPage(event: Event) {      
+    event.preventDefault();      
+    const cloud = this.theme === 'azure' ? 0 : 1;    
+    this.isLoading = true; 
+    this.apiService.sendPrompt(cloud, this.selectedSuggestions, this.description).subscribe((response: DrawingRequest) => {        
+        this.router.navigate(['/diagram']);   
+        this.isLoading = false; 
+    }, error => {  
+        this.isLoading = false; 
+    });     
+  }     
   
   ngOnDestroy() {  
     this.subscription.unsubscribe();  
