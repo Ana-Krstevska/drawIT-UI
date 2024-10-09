@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { DrawingRequest } from '../models/drawing-request.model';
+import { SuggestionRequest } from '../models/suggestion-request';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DrawingAPIService {
   private drawingRequest!: DrawingRequest;
+  private suggestionRequest!: SuggestionRequest;
   private apiUrl = 'https://localhost:44382/drawIT/';  
 
   constructor(private http: HttpClient) { }  
@@ -32,6 +34,17 @@ export class DrawingAPIService {
         this.drawingRequest = response;  
       }));  
   }
+
+  sendServices(cloud: number, cloudServices: string[]): Observable<SuggestionRequest> {  
+    const body = {  
+      cloud: cloud,  
+      cloudServices: cloudServices  
+    };  
+    return this.http.post<SuggestionRequest>(`${this.apiUrl}SearchSuggestions`, body)  
+      .pipe(tap((response: SuggestionRequest) => {    
+        this.suggestionRequest = response;    
+      }));   
+  }    
 
   getDrawingRequest(): DrawingRequest {  
     return this.drawingRequest;  
