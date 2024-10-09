@@ -11,6 +11,7 @@ import { DrawingAPIService } from 'src/app/services/drawing-api.service';
 })
 export class SearchBarComponent implements OnInit {
   borderColor = 'blue';
+  cloudProvider = 0;
   private subscription!: Subscription;
 
   activeSuggestionIndex = -1;
@@ -88,7 +89,7 @@ export class SearchBarComponent implements OnInit {
       let allSuggestions = this.suggestions.filter(suggestion =>
         suggestion.toLowerCase().includes(this.searchText.toLowerCase())
       );
-      this.filteredSuggestions = allSuggestions.slice(0, 3);
+      this.filteredSuggestions = allSuggestions.slice(0, 4);
       this.isActive = this.filteredSuggestions.length > 0;
     }
   }
@@ -132,12 +133,28 @@ export class SearchBarComponent implements OnInit {
     this.isActive = false;
     this.activeSuggestionIndex = -1;
     this.activeSuggestion = null;
+    this.checkServicesAndSendPrompt(); 
   }
 
   removeSuggestion(index: number) {
     this.selectedSuggestions.splice(index, 1);
+    this.checkServicesAndSendPrompt(); 
   }
 
+  checkServicesAndSendPrompt() {  
+    if (this.selectedSuggestions.length >= 3) {  
+      this.themeService.theme$.subscribe(theme => {  
+        this.cloudProvider = theme === 'azure' ? 0 : 1;   
+      });  
+      this.apiService.sendServices(this.cloudProvider, this.selectedSuggestions).subscribe(response => {  
+        console.log(response);  
+        // return true-false if such architecture exists
+        // return name of architecture and id of drawing config
+        // trigger a pop up notification component, that says this is a recognized standard architecture
+        // if the pop up gets clicked to generate diagram, just call backend with the id and draw
+      });  
+    }  
+  }  
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
