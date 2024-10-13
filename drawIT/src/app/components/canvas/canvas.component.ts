@@ -64,13 +64,19 @@ export class CanvasComponent implements OnInit {
     // If there are no groups (i.e., no source services with multiple outgoing links),  
     // draw all services in a linear fashion  
     if (groupedServicePairs.length === 0) {  
-      this.servicePairs.forEach((pair) => {  
+      let yPosition = element.clientHeight / 2;
+      this.servicePairs.forEach((pair, index) => {  
         const sourceElement = this.createServiceRectangle(pair.sourceService);  
 
         if(pair.sourceService !== undefined)
           drawnServices.add(pair.sourceService);
 
-        this.drawLinear(sourceElement, xPosition, element.clientHeight / 2);  
+        if (this.servicePairs.length >= 4) {
+          xPosition -= 35;  
+          yPosition = index % 2 === 0 ? element.clientHeight / 2 - 75 : element.clientHeight / 2 + 75;  
+        } 
+
+        this.drawLinear(sourceElement, xPosition, yPosition);  
         xPosition += sourceElement.size().width + 50;  
         elements.push(sourceElement);  
       
@@ -83,7 +89,28 @@ export class CanvasComponent implements OnInit {
         }  
       
         lastElement = sourceElement;  
-      });  
+      });   
+
+      const lastPair = this.servicePairs[this.servicePairs.length - 1];    
+      if (lastPair && lastPair.destinationService) {  
+        if (this.servicePairs.length >= 4) {  
+          yPosition = this.servicePairs.length % 2 === 0 ? element.clientHeight / 2 - 75 : element.clientHeight / 2 + 75;  
+        }   
+        const destinationElement = this.createServiceRectangle(lastPair.destinationService);    
+        this.drawLinear(destinationElement, xPosition, yPosition);    
+        elements.push(destinationElement);    
+      
+        // Create link with the last element    
+        if (lastElement) {    
+          const link = new joint.shapes.standard.Link();    
+          link.source(lastElement);    
+          link.target(destinationElement);    
+          links.push(link);    
+        }    
+      } 
+
+      links.forEach(link => this.graph.addCell(link));
+
     } else {  
       // If there are groups, handle them as before but also add linear elements before and after  
       let linearServices: string[] = [];  
