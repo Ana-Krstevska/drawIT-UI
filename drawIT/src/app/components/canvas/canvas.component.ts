@@ -56,6 +56,7 @@ export class CanvasComponent implements OnInit {
     // array to store created elements  
     const elements: joint.shapes.standard.Rectangle[] = [];  
     const links: joint.shapes.standard.Link[] = [];  
+    const drawnServices = new Set<string>(); 
       
     let xPosition = 60;  
     let lastElement: joint.shapes.standard.Rectangle | undefined;  
@@ -65,6 +66,10 @@ export class CanvasComponent implements OnInit {
     if (groupedServicePairs.length === 0) {  
       this.servicePairs.forEach((pair) => {  
         const sourceElement = this.createServiceRectangle(pair.sourceService);  
+
+        if(pair.sourceService !== undefined)
+          drawnServices.add(pair.sourceService);
+
         this.drawLinear(sourceElement, xPosition, element.clientHeight / 2);  
         xPosition += sourceElement.size().width + 50;  
         elements.push(sourceElement);  
@@ -89,7 +94,7 @@ export class CanvasComponent implements OnInit {
           break;  
         }  
         const sourceService = this.servicePairs[i].sourceService;
-        if (sourceService !== undefined) {
+        if (sourceService !== undefined && !drawnServices.has(sourceService)) {
           linearServices.push(sourceService);  
         }
       }       
@@ -137,6 +142,8 @@ export class CanvasComponent implements OnInit {
       
         group.forEach((pair) => {  
           const targetElement = this.createServiceRectangle(pair.destinationService);  
+          if(pair.destinationService !== undefined)
+            drawnServices.add(pair.destinationService);
           elements.push(targetElement);  
             
           this.drawLinear(targetElement, xPosition, yPosition);  
@@ -157,7 +164,7 @@ export class CanvasComponent implements OnInit {
           break;  
         }  
         const sourceService = this.servicePairs[i].sourceService;
-        if (sourceService !== undefined) {
+        if (sourceService !== undefined && !drawnServices.has(sourceService)) {
           linearServices.unshift(sourceService);   
         }
       }  
