@@ -168,7 +168,7 @@ export class CanvasComponent implements OnInit {
         this.drawLinear(sourceElement, xPosition, element.clientHeight / 2);  
         xPosition += sourceElement.size().width + 50;  
         elements.push(sourceElement);  
-    
+      
         // Create link with the last element  
         if (lastElement) {  
           const link = new joint.shapes.standard.Link();  
@@ -176,13 +176,29 @@ export class CanvasComponent implements OnInit {
           link.target(sourceElement);  
           links.push(link);  
         }  
-    
+      
         lastElement = sourceElement;  
       });  
-    }  
       
-    // Add links to graph  
-    links.forEach(link => this.graph.addCell(link));  
+      // Handle the destinationService of the last pair in servicePairs  
+      const lastPair = this.servicePairs[this.servicePairs.length - 1];  
+      if (lastPair && lastPair.destinationService) {  
+        const destinationElement = this.createServiceRectangle(lastPair.destinationService);  
+        this.drawLinear(destinationElement, xPosition, element.clientHeight / 2);  
+        elements.push(destinationElement);  
+      
+        // Create link with the last element  
+        if (lastElement) {  
+          const link = new joint.shapes.standard.Link();  
+          link.source(lastElement);  
+          link.target(destinationElement);  
+          links.push(link);  
+        }  
+      }  
+      
+      // Add links to graph  
+      links.forEach(link => this.graph.addCell(link)); 
+    }
   }                    
 
   drawInParallel(elements: joint.shapes.standard.Rectangle[], xPosition: number): void {  
@@ -243,4 +259,4 @@ export class CanvasComponent implements OnInit {
 
     return el;
   }
-}    
+} 
