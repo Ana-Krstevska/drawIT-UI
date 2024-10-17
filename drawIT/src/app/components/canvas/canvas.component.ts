@@ -50,7 +50,8 @@ export class CanvasComponent implements OnInit {
       model: this.graph,  
       gridSize: 1  
     });  
-      
+    
+    this.diagramService.setGraph(this.graph, this.paper);
     const groupedServicePairs = this.groupServicePairsBySourceService(this.servicePairs);  
     
     // array to store created elements  

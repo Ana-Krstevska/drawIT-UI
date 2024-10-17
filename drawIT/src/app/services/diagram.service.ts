@@ -15,7 +15,7 @@ export class DiagramService {
     this.paper = paper;  
   }        
   
-  downloadDiagram(): void {        
+  downloadDiagram(): void {   
     const svgElement = this.paper.svg;    
     const svgString = new XMLSerializer().serializeToString(svgElement);    
   
