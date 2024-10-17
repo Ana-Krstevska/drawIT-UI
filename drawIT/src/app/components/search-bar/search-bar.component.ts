@@ -52,6 +52,7 @@ export class SearchBarComponent implements OnInit {
   
     this.suggestionsService.removeSuggestionIndex$.subscribe(index => {  
       this.selectedSuggestions.splice(index, 1);  
+      this.checkServicesAndSendPrompt(); 
     });  
   } 
 
@@ -129,6 +130,7 @@ export class SearchBarComponent implements OnInit {
   selectSuggestion(suggestion: string) {
     this.searchText = '';
     this.onSuggestionSelected(suggestion);
+    this.selectedSuggestions.push(suggestion);
     this.filteredSuggestions = [];
     this.isActive = false;
     this.activeSuggestionIndex = -1;
@@ -146,12 +148,11 @@ export class SearchBarComponent implements OnInit {
       this.themeService.theme$.subscribe(theme => {  
         this.cloudProvider = theme === 'azure' ? 0 : 1;   
       });  
+      
       this.apiService.sendServices(this.cloudProvider, this.selectedSuggestions).subscribe(response => {  
-        console.log(response);  
-        // return true-false if such architecture exists
-        // return name of architecture and id of drawing config
-        // trigger a pop up notification component, that says this is a recognized standard architecture
-        // if the pop up gets clicked to generate diagram, just call backend with the id and draw
+        if(response.name !== "No suggestion available") {  
+          this.suggestionsService.changeArchitectureSuggestion(response); 
+        }
       });  
     }  
   }  

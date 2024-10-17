@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';  
+import { Component, Input, OnInit } from '@angular/core';  
 import { Subscription } from 'rxjs';
 import { SelectedServicesService } from 'src/app/services/selected-services.service';
 import { SuggestionsService } from 'src/app/services/suggestion.service';
