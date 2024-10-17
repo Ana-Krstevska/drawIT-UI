@@ -19,6 +19,8 @@ export class CanvasComponent implements OnInit {
   fillColor = 'blue';
   labelColor = 'white';
   servicePairs: ServicePair[] = [];
+  elementsMap: { [service: string]: joint.shapes.standard.Rectangle } = {};  
+
 
   constructor(private apiService: DrawingAPIService,
     private themeService: ThemeService,
@@ -272,26 +274,35 @@ export class CanvasComponent implements OnInit {
     
 
   drawLinear(el: joint.shapes.standard.Rectangle, xPosition: number, yPosition: number): void {
+    el.remove();
     el.position(xPosition, yPosition);
     el.addTo(this.graph);
   }
 
-  createServiceRectangle(service: string | undefined): joint.shapes.standard.Rectangle {
-    const el = new joint.shapes.standard.Rectangle();
-    const textWidth = (service ? service.length : 0) * 6 + 50;  
-
-    el.resize(textWidth, 40);
-    el.attr({
-      body: {
-        fill: this.fillColor
-      },
-      label: {
-        text: service,
-        fill: this.labelColor,
-        fontWeight: 'bold'
-      }
-    });
-
-    return el;
-  }
+  createServiceRectangle(service: string | undefined): joint.shapes.standard.Rectangle {  
+    if (service && this.elementsMap[service]) {  
+      return this.elementsMap[service];  
+    }  
+    
+    const el = new joint.shapes.standard.Rectangle();  
+    const textWidth = (service ? service.length : 0) * 6 + 50;    
+    
+    el.resize(textWidth, 40);  
+    el.attr({  
+      body: {  
+        fill: this.fillColor  
+      },  
+      label: {  
+        text: service,  
+        fill: this.labelColor,  
+        fontWeight: 'bold'  
+      }  
+    });  
+    
+    if (service) {  
+      this.elementsMap[service] = el;  
+    }  
+    
+    return el;  
+  }    
 } 
