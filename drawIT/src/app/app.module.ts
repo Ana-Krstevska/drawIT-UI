@@ -17,6 +17,7 @@ import { ButtonBackComponent } from './components/button-back/button-back.compon
 import { ButtonDownloadComponent } from './components/button-download/button-download.component';
 import { CanvasComponent } from './components/canvas/canvas.component';
 import { DrawingSpinnerComponent } from './components/drawing-spinner/drawing-spinner.component';
+import { NotificationSuggestionComponent } from './components/notification-suggestion/notification-suggestion.component';
 
 const routes: Routes = [  
   { path: '', redirectTo: '/input', pathMatch: 'full' },  
@@ -38,7 +39,8 @@ const routes: Routes = [
     ButtonBackComponent,
     ButtonDownloadComponent,
     CanvasComponent,
-    DrawingSpinnerComponent
+    DrawingSpinnerComponent,
+    NotificationSuggestionComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,14 @@
+<div class="notification-container" *ngIf="suggestion">    
+    <div class="notification-header">    
+      <h4>Architecture Suggestion</h4>    
+      <button class="close-x-button" (click)="closeNotification()">X</button>    
+    </div>    
+    <div class="notification-body">    
+      <p class="info">Found standard architecture <b>{{suggestion.name}}</b></p>    
+      <p>Would you like to generate this diagram?</p>    
+    </div>    
+    <div class="notification-footer">    
+      <button class="btn close-btn" (click)="closeNotification()">Close</button>    
+      <button class="btn generate-btn" (click)="generateSuggestion()">Generate</button>    
+    </div>    
+</div>  
