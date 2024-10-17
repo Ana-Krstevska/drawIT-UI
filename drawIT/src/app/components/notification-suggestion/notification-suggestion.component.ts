@@ -31,6 +31,7 @@ export class NotificationSuggestionComponent implements OnInit {
   generateSuggestion(): void {
     this.apiService.getDrawingRequestFromSuggestion(this.suggestionId).subscribe((response: DrawingRequest) => {        
         this.router.navigate(['/diagram']);   
+        this.closeNotification();
         this.isLoading = false; 
     }, error => {  
         this.isLoading = false; 
