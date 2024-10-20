@@ -168,17 +168,17 @@ export class CanvasComponent implements OnInit {
       
         lastElement = sourceElement;  
       
-        let yPosition = element.clientHeight / 3;  
-      
+        let yPosition = element.clientHeight / 4 - 30;  
+        xPosition -=50;
         group.forEach((pair) => {  
           const targetElement = this.createServiceRectangle(pair.destinationService);  
           if(pair.destinationService !== undefined)
             drawnServices.add(pair.destinationService);
           elements.push(targetElement);  
             
-          this.drawLinear(targetElement, xPosition, yPosition);  
-          yPosition = 2 * element.clientHeight / 3;  
-      
+          this.drawLinear(targetElement, xPosition, yPosition); 
+
+          yPosition = 3 * element.clientHeight / 4;  
           const link = new joint.shapes.standard.Link();  
           link.source(sourceElement);  
           link.target(targetElement);  
