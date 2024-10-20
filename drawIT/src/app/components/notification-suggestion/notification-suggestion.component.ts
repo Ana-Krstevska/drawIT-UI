@@ -28,6 +28,7 @@ export class NotificationSuggestionComponent implements OnInit {
       this.suggestion = suggestion;  
 
       if(this.suggestion !== null)
+      {
         this.themeService.theme$.subscribe(theme => {
 
           if (theme === 'azure') {
@@ -41,6 +42,7 @@ export class NotificationSuggestionComponent implements OnInit {
           document.documentElement.style.setProperty('--icon-color', this.iconColor);
         });
         this.suggestionId = suggestion.id; 
+      }
     });
   } 
   
