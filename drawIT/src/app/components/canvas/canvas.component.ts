@@ -59,13 +59,13 @@ export class CanvasComponent implements OnInit {
     // array to store created elements  
     const elements: joint.shapes.standard.Rectangle[] = [];  
     const links: joint.shapes.standard.Link[] = [];  
-    const drawnServices = new Set<string>(); 
+    const drawnServices = new Set();  
       
     let xPosition = 60;  
     let lastElement: joint.shapes.standard.Rectangle | undefined;  
       
     // If there are no groups (i.e., no source services with multiple outgoing links),  
-    // draw all services in a linear fashion  
+    // draw all services in a linear fashion 
     if (groupedServicePairs.length === 0) {  
       let yPosition = element.clientHeight / 2;
       this.servicePairs.forEach((pair, index) => {  
@@ -248,30 +248,37 @@ export class CanvasComponent implements OnInit {
   }  
   
   groupServicePairsBySourceService(servicePairs: ServicePair[]): ServicePair[][] {  
-    const servicePairsMap: { [sourceService: string]: ServicePair[] } = {};  
-    const groupedServicePairs: ServicePair[][] = [];  
+    // Create a set of all source services  
+    const sourceServices = new Set(servicePairs.map(pair => pair.sourceService));  
     
-    servicePairs.forEach((pair) => {  
-      if (pair.sourceService) {  
-        // add pair to servicePairsMap  
-        if (servicePairsMap[pair.sourceService]) {  
-          servicePairsMap[pair.sourceService].push(pair);  
-        } else {  
-          servicePairsMap[pair.sourceService] = [pair];  
+    // If the size of the set is less than the length of the array, it means there are duplicate source services  
+    const hasDuplicateSourceServices = sourceServices.size < servicePairs.length;  
+    
+    const groupedServicePairs: ServicePair[][] = [];  
+    let currentGroup: ServicePair[] = [];  
+    
+    servicePairs.forEach((pair, index) => {  
+      // If this is the first pair or if the sourceService is the same as the last pair's sourceService, add it to the current group  
+      if (index === 0 || pair.sourceService === servicePairs[index - 1].sourceService) {  
+        currentGroup.push(pair);  
+      } else {  
+        // If the sourceService is different, add the current group to groupedServicePairs and start a new group  
+        // If there are duplicate source services, add the group even if it only contains one pair  
+        if (hasDuplicateSourceServices || currentGroup.length > 1) {  
+          groupedServicePairs.push(currentGroup);  
         }  
+        currentGroup = [pair];  
       }  
     });  
     
-    // push only those servicePairs to groupedServicePairs which have more than one pair with the same source service  
-    for (let key in servicePairsMap) {  
-      if (servicePairsMap[key].length > 1) {  
-        groupedServicePairs.push(servicePairsMap[key]);  
-      }  
+    // Add the last group to groupedServicePairs  
+    // If there are duplicate source services, add the group even if it only contains one pair  
+    if (hasDuplicateSourceServices || currentGroup.length > 1) {  
+      groupedServicePairs.push(currentGroup);  
     }  
     
     return groupedServicePairs;  
-  }  
-    
+  }                                     
 
   drawLinear(el: joint.shapes.standard.Rectangle, xPosition: number, yPosition: number): void {
     el.remove();

@@ -1,10 +1,20 @@
 <div class="notification-container" *ngIf="suggestion">    
     <div class="notification-header">    
       <h4>Architecture Suggestion</h4>    
-      <button class="close-x-button" (click)="closeNotification()">X</button>    
+      <button class="close-x-button" (click)="closeNotification()"><span class="material-symbols-outlined">
+        cancel
+        </span></button>    
     </div>    
     <div class="notification-body">    
-      <p class="info">Found standard architecture <b>{{suggestion.name}}</b></p>    
+     <div class="info">
+      <span class="material-icons">
+        emoji_objects
+        </span>
+        <div class="suggestion-container">
+          <p>Found standard architecture</p>  
+          <p><b>{{suggestion.name}}</b></p>  
+        </div>
+     </div>  
       <p>Would you like to generate this diagram?</p>    
     </div>    
     <div class="notification-footer">    
