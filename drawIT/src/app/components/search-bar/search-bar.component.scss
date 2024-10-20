@@ -25,6 +25,9 @@
   box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.12);  
 }  
 
+.resultBox{
+  box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.12);
+}
 
 .searchInput input{
   height: 55px;
@@ -99,7 +102,6 @@
 }
 
 .searchInput .resultBox{  
-  // opacity: 0;  
   pointer-events: none;  
 }  
   

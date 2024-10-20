@@ -1,30 +1,64 @@
+@import "../../../styles.scss";
+
+:root {  
+    --suggestion-background: #a9c6fb;
+    --icon-color: #4284ff;
+} 
 
 .notification-container{
-    padding: 10px 15px;
+    padding: 15px 15px;
     min-width: 300px;
     background-color: #f8faff;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    margin: 5px;
     .notification-header{
         display: flex;
         justify-content: space-between;
         align-items: center;
         h4{
-            margin-bottom: 0;
+            margin: 0;
         }
         .close-x-button{
             background-color: transparent;
             border: none;
+            cursor: pointer;
+            span{
+                color: gray;
+                &:hover{
+                    color: rgb(108, 108, 108);
+                }
+            }
         }
     }
     .notification-body{
+        margin: 15px 0;
         p{
             font-size: 14px;
         }
         .info{
-            padding: 5px;
-            background-color: #cadcfd;
+           
             border-radius: 2px;
+            display: flex;
+            gap:5px;
+            align-items: center;
+            justify-content: flex-start;
+            span{
+                color: var(--icon-color);
+            }
+            .suggestion-container{
+                display: flex;
+                flex-direction: column;
+                width: 80%;
+                text-align: center;
+                padding: 0 5px;
+                p{
+                    margin: 0;
+                    padding: 5px 10px;
+                    background-color: var(--suggestion-background);
+                }
+              
+            }
         }
     }
     .notification-footer{
@@ -37,10 +71,14 @@
             border-radius: 2px;
             box-shadow: none;
             border: 0;
+            cursor: pointer;
         }
         .generate-btn{
-            background-color: #cadaf7;
-            border: 1px solid  #4284ff;
+            background-color: var(--suggestion-background);
+            border: 1px solid  var(--icon-color);
+            &:hover{
+                background-color: var(--suggestion-background);
+            }
         }
         .cancel-btn{
             background-color: rgb(110, 110, 110);
