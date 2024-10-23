@@ -6,7 +6,20 @@ body {
     justify-content: flex-end;  
     align-items: flex-start;     
     gap: 50px;
-}  
+} 
+
+header {  
+    position: absolute;  
+    top: 0;  
+    left: 0;  
+    width: 100%;  
+    height: 60px;  
+    background-color: #f8f9fa;  
+    display: flex;  
+    align-items: center;  
+    padding-left: 10px;  
+    z-index: 10; /* ensure the header is above other elements on the page */  
+} 
   
 .logo {  
     width: 100px;  

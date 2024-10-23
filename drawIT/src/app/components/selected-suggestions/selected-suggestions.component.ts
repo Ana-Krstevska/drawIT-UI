@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';  
+import { Component, OnInit } from '@angular/core';  
 import { Subscription } from 'rxjs';
 import { SelectedServicesService } from 'src/app/services/selected-services.service';
 import { SuggestionsService } from 'src/app/services/suggestion.service';
@@ -13,6 +13,7 @@ export class SelectedSuggestionsComponent implements OnInit {
   suggestions: string[] = [];  
 
   borderColor = 'blue';    
+  theme = '';
   private subscription!: Subscription; 
   hasSuggestions = false;
   
@@ -21,22 +22,34 @@ export class SelectedSuggestionsComponent implements OnInit {
               private selectedCloudServices: SelectedServicesService) { }  
   
   ngOnInit() {  
-    this.subscription = this.themeService.theme$.subscribe((theme: string) => {      
+    this.subscription = this.themeService.theme$.subscribe((theme: string) => {  
+      this.theme = theme;    
       this.borderColor = theme === 'azure' ? '#185ee0' : '#e18f03';  
       document.documentElement.style.setProperty('--text-color',  theme === 'azure' ? '#dee9fc' : '#fcf4e8');
+    
+      this.suggestions = [];  
+      this.hasSuggestions = false;  
+        
+      // Load previously selected services for the new theme  
+      const previousSuggestions = this.selectedCloudServices.getSuggestions(theme);  
+      if (previousSuggestions.length) {  
+        this.suggestions = previousSuggestions;  
+        this.hasSuggestions = true;  
+      }  
+
     });  
 
-
-    this.suggestionsService.selectedSuggestion$.subscribe((suggestion: string) => {  
-      this.suggestions.push(suggestion);  
-      this.selectedCloudServices.setSelectedSuggestions(this.suggestions);
-      this.hasSuggestions = true;
+  this.suggestionsService.selectedSuggestion$.subscribe((suggestion: string) => {    
+    this.suggestions.push(suggestion);    
+    this.selectedCloudServices.setSuggestions(this.suggestions, this.theme);  
+    this.hasSuggestions = true;  
     });  
   }  
   
   removeSuggestion(index: number) {    
     this.suggestions.splice(index, 1);  
     this.suggestionsService.removeSuggestion(index);  
+    this.selectedCloudServices.setSuggestions(this.suggestions, this.theme);
     this.selectedCloudServices.setSelectedSuggestions(this.suggestions);
   }  
   
