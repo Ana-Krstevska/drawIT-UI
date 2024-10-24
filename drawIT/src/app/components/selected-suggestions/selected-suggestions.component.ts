@@ -42,6 +42,7 @@ export class SelectedSuggestionsComponent implements OnInit {
   this.suggestionsService.selectedSuggestion$.subscribe((suggestion: string) => {    
     this.suggestions.push(suggestion);    
     this.selectedCloudServices.setSuggestions(this.suggestions, this.theme);  
+    console.log(this.suggestions);
     this.hasSuggestions = true;  
     });  
   }  
@@ -49,6 +50,7 @@ export class SelectedSuggestionsComponent implements OnInit {
   removeSuggestion(index: number) {    
     this.suggestions.splice(index, 1);  
     this.suggestionsService.removeSuggestion(index);  
+    console.log(this.suggestions);
     this.selectedCloudServices.setSuggestions(this.suggestions, this.theme);
     this.selectedCloudServices.setSelectedSuggestions(this.suggestions);
   }  

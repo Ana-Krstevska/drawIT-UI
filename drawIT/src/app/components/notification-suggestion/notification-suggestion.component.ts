@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DrawingRequest } from 'src/app/models/drawing-request.model';
+import { DescriptionService } from 'src/app/services/description.service';
+import { DiagramService } from 'src/app/services/diagram.service';
 import { DrawingAPIService } from 'src/app/services/drawing-api.service';
+import { SelectedServicesService } from 'src/app/services/selected-services.service';
 import { SuggestionsService } from 'src/app/services/suggestion.service';
 import { ThemeService } from 'src/app/services/theme.service';
 
@@ -15,9 +18,12 @@ export class NotificationSuggestionComponent implements OnInit {
   iconColor?: string;
   suggestion: any; 
   suggestionId: any;
+  theme = 'azure';
   isLoading = false; 
 
   constructor(private suggestionsService: SuggestionsService,
+              private selectedServices: SelectedServicesService,
+              private descriptionService: DescriptionService,
               private apiService: DrawingAPIService,
               private themeService: ThemeService,
               private router: Router,
@@ -38,6 +44,7 @@ export class NotificationSuggestionComponent implements OnInit {
             this.suggestionBackground = '#f3dbb3';
             this.iconColor = '#e48c05';
           }
+          this.theme = theme;
           document.documentElement.style.setProperty('--suggestion-background', this.suggestionBackground);
           document.documentElement.style.setProperty('--icon-color', this.iconColor);
         });
@@ -50,6 +57,8 @@ export class NotificationSuggestionComponent implements OnInit {
     this.apiService.getDrawingRequestFromSuggestion(this.suggestionId).subscribe((response: DrawingRequest) => {        
         this.router.navigate(['/diagram']);   
         this.closeNotification();
+        this.selectedServices.clearSuggestion(this.theme);
+        this.descriptionService.clearDescription(this.theme);
         this.isLoading = false; 
     }, error => {  
         this.isLoading = false; 

@@ -20,7 +20,6 @@ export class DescriptionAreaComponent implements OnInit, AfterViewInit {
     this.themeService.theme$.subscribe((theme: string) => {  
       this.theme = theme;  
   
-      // Load the previously saved description for the new theme  
       const previousDescription = this.descriptionService.getDescription(theme);  
       if (previousDescription) {  
         this.description.nativeElement.value = previousDescription;  
@@ -38,7 +37,6 @@ export class DescriptionAreaComponent implements OnInit, AfterViewInit {
     this.themeService.theme$.subscribe((theme: string) => {  
       this.theme = theme;  
     
-      // Load the previously saved description for the new theme  
       const previousDescription = this.descriptionService.getDescription(theme);  
       if (previousDescription) {  
         textarea.value = previousDescription;  

@@ -61,7 +61,7 @@ export class CanvasComponent implements OnInit {
     const links: joint.shapes.standard.Link[] = [];  
     const drawnServices = new Set();  
       
-    let xPosition = 60;  
+    let xPosition = 115;  
     let lastElement: joint.shapes.standard.Rectangle | undefined;  
       
     // If there are no groups (i.e., no source services with multiple outgoing links),  

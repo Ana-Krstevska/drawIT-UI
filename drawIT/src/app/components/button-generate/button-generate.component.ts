@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DrawingAPIService } from 'src/app/services/drawing-api.service';
 import { SelectedServicesService } from 'src/app/services/selected-services.service';
 import { ThemeService } from 'src/app/services/theme.service';
 import { DrawingRequest } from 'src/app/models/drawing-request.model';
+import { DescriptionService } from 'src/app/services/description.service';
 
 @Component({
   selector: 'app-button-generate',
@@ -25,6 +26,7 @@ export class ButtonGenerateComponent implements OnInit {
   constructor(private themeService: ThemeService, 
               private router: Router,
               private apiService: DrawingAPIService,
+              private descriptionService: DescriptionService,
               private selectedCloudServices: SelectedServicesService) {
                 this.selectedCloudServices.selectedSuggestions$.subscribe(  
                   suggestions => this.selectedSuggestions = suggestions  
@@ -43,7 +45,9 @@ export class ButtonGenerateComponent implements OnInit {
     const cloud = this.theme === 'azure' ? 0 : 1;    
     this.isLoading = true; 
     this.apiService.sendPrompt(cloud, this.selectedSuggestions, this.description).subscribe((response: DrawingRequest) => {        
-        this.router.navigate(['/diagram']);   
+        this.router.navigate(['/diagram']); 
+        this.selectedCloudServices.clearSuggestion(this.theme);
+        this.descriptionService.clearDescription(this.theme);
         this.isLoading = false; 
     }, error => {  
         this.isLoading = false; 

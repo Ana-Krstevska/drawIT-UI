@@ -20,4 +20,8 @@ export class SelectedServicesService {
   getSuggestions(theme: string): string[] {  
     return this.selectedServices[theme] || [];  
   } 
+
+  clearSuggestion(theme: string): void{
+    this.selectedServices[theme] = [];
+  }
 }  
