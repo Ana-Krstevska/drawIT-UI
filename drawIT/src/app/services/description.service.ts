@@ -13,4 +13,8 @@ export class DescriptionService {
   getDescription(theme: string): string {  
     return this.descriptions[theme] || '';  
   } 
+
+  clearDescription(theme: string): void {
+    this.descriptions[theme] = '';
+  }
 }

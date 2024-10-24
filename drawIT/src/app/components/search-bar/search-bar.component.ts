@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, HostListener, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { ThemeService } from 'src/app/services/theme.service';
 import { Subscription } from 'rxjs';
 import { SuggestionsService } from 'src/app/services/suggestion.service';
