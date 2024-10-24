@@ -4,9 +4,10 @@
 <head>
     <link rel="stylesheet" type="text/css" href="./input-page.component.scss">
 </head>
-
-<body>
+<div class="header-container">
     <app-header></app-header>
+</div>
+<body>
     <div class="user-input">
         <app-button (selectedTheme)="theme = $event"></app-button>
         <app-search-bar></app-search-bar>              
