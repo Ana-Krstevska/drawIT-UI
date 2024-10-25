@@ -24,14 +24,7 @@ export class SearchBarComponent implements OnInit {
   selectedSuggestions: string[] = [];
   isActive = false;
   searchText = '';
-  suggestions = [
-    "Azure Storage Account",
-    "Azure Service Bus",
-    "Azure Function App",
-    "Azure CosmosDB",
-    "Azure Container App",
-    "Azure Monitor"
-  ];
+  suggestions = [''];
   filteredSuggestions: string[] = [];
 
   constructor(private themeService: ThemeService,
@@ -42,6 +35,7 @@ export class SearchBarComponent implements OnInit {
   ngOnInit() {  
     this.subscription = this.themeService.theme$.subscribe(theme => {  
       this.suggestions = [];
+      this.selectedSuggestions = [];
       this.borderColor = theme === 'azure' ? 'blue' : 'orange';  
       if (theme === 'azure') {  
         this.fetchAzureServices();  
@@ -143,7 +137,7 @@ export class SearchBarComponent implements OnInit {
     this.checkServicesAndSendPrompt(); 
   }
 
-  checkServicesAndSendPrompt() {  
+  checkServicesAndSendPrompt() {
     if (this.selectedSuggestions.length >= 3) {  
       this.themeService.theme$.subscribe(theme => {  
         this.cloudProvider = theme === 'azure' ? 0 : 1;   
