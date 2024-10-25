@@ -11,11 +11,7 @@ export class SelectedServicesService {
   
   setSelectedSuggestions(suggestions: string[]): void {  
     this._selectedSuggestions.next(suggestions);  
-  }  
-
-  setSuggestions(suggestions: string[], theme: string) {  
-    this.selectedServices[theme] = suggestions;  
-  }  
+  } 
     
   getSuggestions(theme: string): string[] {  
     return this.selectedServices[theme] || [];  
