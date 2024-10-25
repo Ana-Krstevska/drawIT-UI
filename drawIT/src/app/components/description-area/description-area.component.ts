@@ -19,11 +19,6 @@ export class DescriptionAreaComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.themeService.theme$.subscribe((theme: string) => {  
       this.theme = theme;  
-  
-      const previousDescription = this.descriptionService.getDescription(theme);  
-      if (previousDescription) {  
-        this.description.nativeElement.value = previousDescription;  
-      }  
     }); 
   }
 
@@ -36,13 +31,7 @@ export class DescriptionAreaComponent implements OnInit, AfterViewInit {
 
     this.themeService.theme$.subscribe((theme: string) => {  
       this.theme = theme;  
-    
-      const previousDescription = this.descriptionService.getDescription(theme);  
-      if (previousDescription) {  
-        textarea.value = previousDescription;  
-      } else {  
-        textarea.value = '';  
-      }  
+      textarea.value = '';  
     }); 
 
     textarea.addEventListener('input', () => {
@@ -61,7 +50,7 @@ export class DescriptionAreaComponent implements OnInit, AfterViewInit {
         textarea.style.height = (3 * lineHeight) + 'px';
         textarea.style.overflowY = 'auto';
       }
-      this.descriptionService.setDescription(textarea.value, this.theme);  
+
       this.descriptionChange.emit(textarea.value); 
     });
   }
