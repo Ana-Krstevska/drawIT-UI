@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DrawingRequest } from 'src/app/models/drawing-request.model';
 import { DescriptionService } from 'src/app/services/description.service';
-import { DiagramService } from 'src/app/services/diagram.service';
 import { DrawingAPIService } from 'src/app/services/drawing-api.service';
 import { SelectedServicesService } from 'src/app/services/selected-services.service';
 import { SuggestionsService } from 'src/app/services/suggestion.service';
@@ -51,6 +50,10 @@ export class NotificationSuggestionComponent implements OnInit {
         this.suggestionId = suggestion.id; 
       }
     });
+
+    this.themeService.theme$.subscribe(() => {  
+      this.closeNotification();  
+    }); 
   } 
   
   generateSuggestion(): void {
