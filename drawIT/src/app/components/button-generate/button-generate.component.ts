@@ -43,15 +43,14 @@ export class ButtonGenerateComponent implements OnInit {
   goToNewPage(event: Event) {      
     event.preventDefault();      
     const cloud = this.theme === 'azure' ? 0 : 1;    
-    this.isLoading = true; 
+    this.isLoading = true;
     this.apiService.sendPrompt(cloud, this.selectedSuggestions, this.description).subscribe((response: DrawingRequest) => {        
         this.router.navigate(['/diagram']); 
-        this.selectedCloudServices.clearSuggestion(this.theme);
         this.descriptionService.clearDescription(this.theme);
         this.isLoading = false; 
     }, error => {  
         this.isLoading = false; 
-    });     
+    }); 
   }     
   
   ngOnDestroy() {  
