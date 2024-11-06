@@ -41,6 +41,7 @@ export class SelectedSuggestionsComponent implements OnInit {
   this.suggestionsService.selectedSuggestion$.subscribe((suggestion: string) => {    
     this.suggestions.push(suggestion);
     this.hasSuggestions = true;  
+    this.selectedCloudServices.setSelectedSuggestions(this.suggestions);
     });  
   }  
   
