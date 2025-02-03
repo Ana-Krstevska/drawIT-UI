@@ -23,3 +23,11 @@
     font-feature-settings: 'liga';
   }
   
+  @keyframes animate {
+    0% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+}

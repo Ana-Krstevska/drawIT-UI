@@ -96,13 +96,6 @@ body{
     z-index:1;
 }
 
-@keyframes animate {
-    0%
-    {
-        transform:translate(-50%,-50%) rotate(360deg);
-    }
-    100%
-    {
-        transform:translate(-50%,-50%) rotate(0deg);
-    }
+.rotating-element {
+    animation: animate 2s linear infinite;
 }

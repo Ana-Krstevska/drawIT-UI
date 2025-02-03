@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ButtonGenerateComponent } from './button-generate.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('ButtonGenerateComponent', () => {
   let component: ButtonGenerateComponent;
@@ -8,7 +9,8 @@ describe('ButtonGenerateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ButtonGenerateComponent ]
+      declarations: [ ButtonGenerateComponent ],
+      providers: [ HttpClient, HttpHandler ]
     })
     .compileComponents();
   });
